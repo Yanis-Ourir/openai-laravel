@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class ChatController extends Controller
 {
     protected OpenAIService $openAiService;
+    protected array $messageHistory = [];
 
     public function __construct(OpenAIService $openAiService)
     {
@@ -16,7 +17,9 @@ class ChatController extends Controller
 
     public function chat(Request $request)
     {
-        return $this->openAiService->chat($request->message);
+        $this->messageHistory[] = $this->openAiService->chat($request->message);
+        session(['response' => $this->messageHistory]);
+        dd(session('response'));
     }
 
     public function messageHistory()
