@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\ChatController;
+use App\Services\OpenAIService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

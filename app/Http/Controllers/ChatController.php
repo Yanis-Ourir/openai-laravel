@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ChatController extends Controller
 {
-    private OpenAIService $openAiService;
+    protected OpenAIService $openAiService;
 
     public function __construct(OpenAIService $openAiService)
     {
@@ -16,6 +16,15 @@ class ChatController extends Controller
 
     public function chat(Request $request)
     {
-        return $this->openAiService->chat($request->input('prompt'));
+        return $this->openAiService->chat($request->message);
+    }
+
+    public function messageHistory()
+    {
+        // UN TABLEAU STATIC POUR L'INSTANT
+        return [
+            ['role' => 'user', 'content' => 'Hello!'],
+            ['role' => 'assistant', 'content' => 'Hi there! How can I assist you today?'],
+        ];
     }
 }
