@@ -1,0 +1,11 @@
+<?php
+namespace App\Services;
+
+class OpenAIService
+{
+    public function chat(string $prompt): string
+    {
+        // return a response from OpenAI API using the provided prompt
+        return "Response from OpenAI for prompt: $prompt";
+    }
+}
