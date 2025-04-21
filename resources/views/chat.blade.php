@@ -25,7 +25,15 @@
             
       
             <div id="chat-messages" class="w-full bg-gray-800 rounded-xl p-4 overflow-y-auto max-h-96 shadow-lg">
-                @if (session('response'))
+                @if ($messageHistory)
+                    @foreach ($messageHistory as $message)
+                        <div class="flex {{ $message['role'] === 'user' ? 'justify-end' : '' }} mb-4">
+                            <div class="{{ $message['role'] === 'user' ? 'bg-indigo-600' : 'bg-gray-700' }} text-white py-2 px-4 rounded-xl max-w-[80%] shadow">
+                                <p>{{ $message['content'] }}</p>
+                            </div>
+                        </div>
+                    @endforeach
+                {{-- @if (session('response'))
                   
                     <div class="flex justify-end mb-4">
                         <div class="bg-indigo-600 text-white py-2 px-4 rounded-xl max-w-[80%] shadow">
@@ -38,7 +46,7 @@
                         <div class="bg-gray-700 py-2 px-4 rounded-xl max-w-[80%] shadow">
                             <p class="text-gray-100">{{ session('response') }}</p>
                         </div>
-                    </div>
+                    </div> --}}
                 @else
                     <div class="text-center py-8 text-gray-500">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -50,7 +58,7 @@
             </div>
             
         
-            <form id="chat-form" class="w-full" action="{{ route('chatPrompt') }}" method="POST">
+            <form id="chat-form" class="w-full" action="{{ route('chat.prompt') }}" method="POST">
                 @csrf
                 <div class="flex flex-col gap-3">
                     <div class="relative">

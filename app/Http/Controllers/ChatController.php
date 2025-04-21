@@ -15,19 +15,28 @@ class ChatController extends Controller
         $this->openAiService = $openAiService;
     }
 
+    public function index()
+    {  
+        return view('chat', [
+            'messageHistory' => $this->messageHistory,
+        ]);
+    }
+
     public function chat(Request $request)
     {
-        $this->messageHistory[] = $this->openAiService->chat($request->message);
+        $this->messageHistory[] = $this->openAiService->chat($request->prompt);
         session(['response' => $this->messageHistory]);
         dd(session('response'));
     }
 
-    public function messageHistory()
-    {
-        // UN TABLEAU STATIC POUR L'INSTANT
-        return [
-            ['role' => 'user', 'content' => 'Hello!'],
-            ['role' => 'assistant', 'content' => 'Hi there! How can I assist you today?'],
-        ];
-    }
+    // public function messageHistory()
+    // {
+    //     // UN TABLEAU STATIC POUR L'INSTANT
+    //     $this->messageHistory = [
+    //         ['role' => 'user', 'content' => 'Hello!'],
+    //         ['role' => 'assistant', 'content' => 'Hi there! How can I assist you today?'],
+    //     ];
+
+    //     return $this->messageHistory;
+    // }
 }
